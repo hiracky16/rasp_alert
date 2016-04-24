@@ -1,6 +1,6 @@
 import urllib.request
 import json
-import commands
+import os
 
 city = '330010'
 
@@ -11,9 +11,14 @@ res = res.decode('utf-8')
 res = json.loads(res)
 
 text = res['title']
+text = "".join(text.split(" ")[1:])
 
 for forecast in res['forecasts']:
-	text = text + forecast['dateLabel']+'('+forecast['date']+')' + forecast['telop'] + forecast['temperature']['max']['celsius']
+	text = text + forecast['dateLabel'] + forecast['date'] + forecast['telop']
 
-commands.getoutput("jsay "+ text)
+print(text)
+
+cmd = "jsay " + text
+
+os.system(cmd)
 
