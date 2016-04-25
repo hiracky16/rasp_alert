@@ -2,23 +2,29 @@ import urllib.request
 import json
 import os
 
-city = '330010'
+class rasp_weather:
+	def __init__(self):
+		self.city = '330010'
 
-res = urllib.request.urlopen('http://weather.livedoor.com/forecast/webservice/json/v1?city=%s'%city).read()
+	def getWeather(self):
+		res = urllib.request.urlopen('http://weather.livedoor.com/forecast/webservice/json/v1?city=%s'%self.city)
+		res = res.read().decode('utf-8')
+		res = json.loads(res)
+		text = res['title']
+		text = "".join(text.split(" ")[1:])
+		for forecast in res['forecasts']:
+			text = text + forecast['dateLabel'] + forecast['telop']
 
-res = res.decode('utf-8')
+		return text
 
-res = json.loads(res)
 
-text = res['title']
-text = "".join(text.split(" ")[1:])
+#if __name__=="__main__":
+#	w = rasp_weather()
+#	text = w.getWeather()
+#	print(text)
 
-for forecast in res['forecasts']:
-	text = text + forecast['dateLabel'] + forecast['date'] + forecast['telop']
 
-print(text)
+#cmd = "jsay " + text
 
-cmd = "jsay " + text
-
-os.system(cmd)
+#os.system(cmd)
 
