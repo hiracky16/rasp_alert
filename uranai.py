@@ -19,18 +19,16 @@ class rasp_uranai:
 		all_result = result['horoscope'][date]
 		signs = [a['sign'] for a in all_result]
 		index = signs.index('蠍座')
-		scorpion = all_result[index]
+		s = all_result[index]
 
-		print(scorpion)
-'''		
-		res = res.read().decode('utf-8')
-		res = json.loads(res)
-		text = res['title']
-		text = "".join(text.split(" ")[1:])
-		for forecast in res['forecasts']:
-			text = text + forecast['dateLabel'] + forecast['telop']
+		rank = '今日のさそり座の運勢は'+str(s['rank'])+'位。'
+		content = s['content']+'。'
+		job = '仕事運'+str(s['job'])+'位。'
+		love = '恋愛運'+str(s['love'])+'位。'
+		money = '金銭運'+str(s['money'])+'位。'
+		item = 'ラッキーアイテム'+s['item']+'です。'
+		color = 'ラッキーカラー'+s['color']+'です。'
+		result = rank + content + job + love + money + item + color
 
-		return text
-'''
-u = rasp_uranai()
-u.getUranai()
+		return result
+		
